@@ -4,12 +4,37 @@ import Thanks from './components/Thanks'
 import Steps from './components/Steps'
 
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
-
+import { useState } from 'react'
 import { useForm } from './hooks/useForm'
 import './App.css'
 
+type FormFields = {
+  name: string
+  email: string
+  review: string
+  comment: string
+}
+const formTemplate: FormFields = {
+  name: '',
+  email: '',
+  review: '',
+  comment: ''
+}
+
 function App() {
-  const formComponents = [<UserForm />, <ReviewForm />, <Thanks />]
+  const [data, SetData] = useState(formTemplate)
+
+  const updateFieldHandler = (key: string, value: string) => {
+    SetData(prev => {
+      return { ...prev, [key]: value }
+    })
+  }
+
+  const formComponents = [
+    <UserForm data={data} updateFieldHandler={updateFieldHandler} />,
+    <ReviewForm />,
+    <Thanks />
+  ]
 
   const { currentStep, currentComponent, changeStep } = useForm(formComponents)
 
