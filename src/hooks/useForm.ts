@@ -5,7 +5,7 @@ export function useForm(steps: ReactElement[]) {
 
   function changeStep(i: number, e?: FormEvent) {
     if (e) e.preventDefault()
-    if(i < 0 || i >= steps.length) return
+    if (i < 0 || i >= steps.length) return
 
     setCurrentStep(i)
   }
